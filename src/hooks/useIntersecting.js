@@ -5,7 +5,7 @@ export default function useIntersecting(Alpine) {
                 ? options
                 : options.target;
 
-            const root = options.root instanceof Element
+            const root = (options.root instanceof Element || options.root instanceof Document)
                 ? options.root
                 : null;
 
@@ -14,6 +14,8 @@ export default function useIntersecting(Alpine) {
             const threshold = options.threshold || 0;
 
             const initial = options.initial || false;
+
+            console.log('options', { target, root, rootMargin, threshold, initial });
 
             const observer = new IntersectionObserver(
                 ([entry]) => setter(entry.isIntersecting),
